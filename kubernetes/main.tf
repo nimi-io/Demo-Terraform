@@ -8,14 +8,21 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "~> 2.31"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.13"
+    }
   }
 }
 
 provider "kind" {}
 
 provider "kubernetes" {
-  host                   = kind_cluster.local.endpoint
-  cluster_ca_certificate = kind_cluster.local.cluster_ca_certificate
-  client_certificate     = kind_cluster.local.client_certificate
-  client_key             = kind_cluster.local.client_key
+  config_path = "${path.module}/local-cluster-config"
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "${path.module}/local-cluster-config"
+  }
 }
