@@ -1,0 +1,35 @@
+# Kubernetes kubeconfig files
+*-config
+kubeconfig*
+
+# Terraform state
+*.tfstate
+*.tfstate.backup
+*.tfstate.*.backup
+
+# Terraform working directory
+.terraform/
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Secrets — never commit these
+*.tfvars
+!*.tfvars.example
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Lock files (optional — remove this line if you want to commit the lock file)
+# .terraform.lock.hcl
+
+# macOS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
