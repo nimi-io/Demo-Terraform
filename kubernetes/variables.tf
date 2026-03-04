@@ -7,7 +7,7 @@ variable "cluster_name" {
 variable "worker_count" {
   description = "Number of worker nodes"
   type        = number
-  default     = 2
+  default     = 3
 }
 
 variable "kubernetes_version" {
