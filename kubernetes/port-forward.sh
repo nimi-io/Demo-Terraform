@@ -25,18 +25,22 @@ kubectl port-forward -n monitoring   svc/prometheus-server   9090:80   &>/tmp/pf
 kubectl port-forward -n monitoring   svc/grafana             9030:80   &>/tmp/pf-grafana.log      & PIDS+=($!)
 kubectl port-forward -n argocd       svc/argocd-server       9081:80   &>/tmp/pf-argocd.log       & PIDS+=($!)
 kubectl port-forward -n tools        svc/uptime-kuma         9031:3001 &>/tmp/pf-uptime-kuma.log  & PIDS+=($!)
-kubectl port-forward -n tools        svc/metabase            9032:3000 &>/tmp/pf-metabase.log     & PIDS+=($!)
 
 printf '%s\n' "${PIDS[@]}" > .pf.pids
 
 echo ""
-  echo "  Traefik (HTTP)     →  http://localhost:9080"
-  echo "  Traefik dashboard  →  http://localhost:9000/dashboard/"
+echo "  Traefik (HTTP)     →  http://localhost:9080"
+echo "  Traefik dashboard  →  http://localhost:9000/dashboard/"
 echo "  Prometheus         →  http://localhost:9090"
 echo "  Grafana            →  http://localhost:9030  (admin / admin)"
 echo "  ArgoCD             →  http://localhost:9081  (admin / see below)"
 echo "  Uptime Kuma        →  http://localhost:9031"
-echo "  Metabase           →  http://localhost:9032"
+echo ""
+echo "  Via Traefik Ingress (add to /etc/hosts: 127.0.0.1 grafana.local prometheus.local argocd.local uptime.local):"
+echo "  Grafana            →  https://grafana.local:9443"
+echo "  Prometheus         →  https://prometheus.local:9443"
+echo "  ArgoCD             →  https://argocd.local:9443"
+echo "  Uptime Kuma        →  https://uptime.local:9443"
 echo ""
 echo "ArgoCD password:"
 kubectl -n argocd get secret argocd-initial-admin-secret \

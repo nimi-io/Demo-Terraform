@@ -32,6 +32,16 @@ resource "helm_release" "argocd" {
     value = "30444"
   }
 
+  # Skip pre-install hooks (redis secret init) that cause timeouts
+  set {
+    name  = "configs.secret.createSecret"
+    value = "true"
+  }
+
+  timeout          = 600  # 10 minutes
+  wait             = true
+  wait_for_jobs    = false
+
   depends_on = [kind_cluster.local]
 }
 

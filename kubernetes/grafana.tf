@@ -47,4 +47,6 @@ resource "helm_release" "grafana" {
   ]
 
   depends_on = [helm_release.prometheus]
+
+  timeout = 600
 }

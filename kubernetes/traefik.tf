@@ -27,5 +27,26 @@ resource "helm_release" "traefik" {
     value = "true"
   }
 
+  # Allow dashboard access without auth (local dev only)
+  set {
+    name  = "api.insecure"
+    value = "true"
+  }
+
+  # Enable Kubernetes Ingress provider so standard Ingress resources work
+  set {
+    name  = "providers.kubernetesIngress.enabled"
+    value = "true"
+  }
+
+  # Enable cert-manager integration via TLS annotations
+  set {
+    name  = "providers.kubernetesIngress.allowExternalNameServices"
+    value = "true"
+  }
+
   depends_on = [kind_cluster.local]
+
+  timeout = 300
 }
+

@@ -22,5 +22,7 @@ resource "helm_release" "prometheus" {
     value = "false"
   }
 
+  timeout = 600  # 10 minutes
+
   depends_on = [kind_cluster.local]
 }
